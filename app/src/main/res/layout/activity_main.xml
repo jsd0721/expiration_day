@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:gravity="end"
+android:orientation="vertical"
+tools:context=".MainActivity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="158dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/back1"
+        android:src="@drawable/food"></ImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/product_name"
+            android:layout_width="match_parent"
+            android:layout_height="83dp"
+            android:hint="제품명"
+            android:textSize="30dp"
+            android:privateImeOptions="defaultInputmode=korean"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/expiraton_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="유통기한"
+                android:privateImeOptions="defaultInputmode=korean"
+                android:textSize="22dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="181dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        android:background="@drawable/back1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/category_spinner_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="카테고리"
+            android:textSize="28dp" />
+
+        <Spinner
+            android:id="@+id/spinner_category"
+            android:layout_width="wrap_content"
+            android:layout_height="49dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:entries="@array/카테고리선택"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/back1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/save_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="보관장소"
+            android:textSize="28dp" />
+
+        <Spinner
+            android:id="@+id/save_place_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="49dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:entries="@array/보관장소" />
+    </LinearLayout>
+</LinearLayout>
+
+<Button
+    android:id="@+id/button_save"
+    android:layout_width="190dp"
+    android:layout_height="wrap_content"
+    android:background="#6200ee"
+    android:text="SAVE"
+    android:textColor="#ffffff" />
+
+</LinearLayout>
