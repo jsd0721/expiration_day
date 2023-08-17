@@ -1,58 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".register">
+    android:background="@color/white"
+    tools:context=".RegisterChoiseActivity">
 
-    <TextView
-        android:id="@+id/textView4"
+    <ImageButton
+        android:id="@+id/barcode_reg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:layout_marginBottom="269dp"
-        android:text="등록 방식을 선택해 주세요"
-        android:textColor="#000000"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:src="@drawable/barcode"
+        android:background="@drawable/button_cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/direct_reg"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:tooltipText="barcodeScan"
+        android:layout_marginBottom="20dp"/>
 
     <Button
         android:id="@+id/direct_reg"
-        android:layout_width="160dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="344dp"
-        android:background="@drawable/but"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="직접 등록"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <Button
-        android:id="@+id/barcode_reg"
-        android:layout_width="538px"
-        android:layout_height="332px"
-        android:layout_marginTop="248dp"
-
-        android:background="@drawable/barcorde"
+        android:textStyle="bold"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="103dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="295dp"
-        android:gravity="center"
-        android:text="바코드입력"
+        app:layout_constraintTop_toBottomOf="@id/barcode_reg"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/barcode_reg"
-        app:layout_constraintStart_toStartOf="@+id/barcode_reg"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:backgroundTint="@color/white"
+        android:elevation="0dp"
+        android:textColor="#898989"/>
 
-</android.support.constraint.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

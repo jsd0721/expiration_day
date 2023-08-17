@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
@@ -8,117 +8,142 @@ android:gravity="end"
 android:orientation="vertical"
 tools:context=".MainActivity">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="158dp"
-    android:orientation="horizontal">
-
     <ImageView
         android:id="@+id/imageView"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/food"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/productNameEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="제품명"
+        android:textSize="15sp"
+        android:background="@drawable/spinner_theme"
+        android:padding="15dp"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/yearEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="년도 입력"
+        android:textSize="15sp"
+        android:padding="15dp"
+        android:background="@drawable/spinner_theme"
+        app:layout_constraintTop_toTopOf="@id/monthEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/monthEditText"
+        app:layout_constraintStart_toStartOf="@+id/productNameEditText"
+        app:layout_constraintEnd_toStartOf="@id/monthEditText"
+        android:layout_marginEnd="5dp"
+        android:inputType="numberDecimal"/>
+
+    <EditText
+        android:id="@+id/monthEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="월 입력"
+        android:privateImeOptions="defaultInputmode=korean"
+        android:textSize="15sp"
+        android:padding="15dp"
+        android:background="@drawable/spinner_theme"
+        app:layout_constraintStart_toEndOf="@+id/yearEditText"
+        app:layout_constraintEnd_toStartOf="@+id/dayEditText"
+        app:layout_constraintTop_toBottomOf="@+id/productNameEditText"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:inputType="numberDecimal"/>
+
+    <EditText
+        android:id="@+id/dayEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="일 입력"
+        android:privateImeOptions="defaultInputmode=korean"
+        android:textSize="15sp"
+        android:padding="15dp"
+        android:background="@drawable/spinner_theme"
+        app:layout_constraintStart_toEndOf="@+id/monthEditText"
+        app:layout_constraintEnd_toEndOf="@+id/productNameEditText"
+        app:layout_constraintTop_toTopOf="@+id/monthEditText"
+        app:layout_constraintBottom_toBottomOf="@id/monthEditText"
+        android:layout_marginStart="5dp"
+        android:inputType="numberDecimal"/>
+
+    <TextView
+        android:id="@+id/categoryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="카테고리"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_margin="15dp"
+        app:layout_constraintStart_toStartOf="@+id/productNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/yearEditText"
+        app:layout_constraintBottom_toTopOf="@id/save_place"
+        app:layout_constraintEnd_toStartOf="@+id/categorySpinner"/>
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/back1"
-        android:src="@drawable/food"></ImageView>
+        android:entries="@array/카테고리선택"
+        android:spinnerMode="dropdown"
+        app:layout_constraintTop_toTopOf="@id/categoryText"
+        app:layout_constraintBottom_toBottomOf="@+id/categoryText"
+        app:layout_constraintStart_toEndOf="@id/categoryText"
+        app:layout_constraintEnd_toEndOf="@id/productNameEditText"
+        android:padding="5dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+    <TextView
+        android:id="@+id/save_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="보관장소"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/savePlaceSpinner"
+        app:layout_constraintStart_toStartOf="@id/productNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/categoryText" />
 
-        <EditText
-            android:id="@+id/product_name"
-            android:layout_width="match_parent"
-            android:layout_height="83dp"
-            android:hint="제품명"
-            android:textSize="30dp"
-            android:privateImeOptions="defaultInputmode=korean"/>
+    <Spinner
+        android:id="@+id/savePlaceSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:entries="@array/보관장소"
+        app:layout_constraintTop_toTopOf="@id/save_place"
+        app:layout_constraintBottom_toBottomOf="@id/save_place"
+        app:layout_constraintStart_toEndOf="@+id/save_place"
+        app:layout_constraintEnd_toEndOf="@id/productNameEditText"
+        android:padding="5dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:orientation="horizontal">
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_apply"
+        android:layout_marginTop="20dp"
+        android:textColor="#ffffff"
+        android:text="SAVE"
+        android:padding="20dp"
+        app:layout_constraintStart_toStartOf="@id/productNameEditText"
+        app:layout_constraintEnd_toEndOf="@id/productNameEditText"
+        app:layout_constraintTop_toBottomOf="@id/savePlaceSpinner"
+        />
 
-            <EditText
-                android:id="@+id/expiraton_date"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="유통기한"
-                android:privateImeOptions="defaultInputmode=korean"
-                android:textSize="22dp" />
-
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="181dp"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="89dp"
-        android:background="@drawable/back1"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/category_spinner_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text=""
-            android:textSize="30dp" />
-
-        <TextView
-            android:id="@+id/category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="카테고리"
-            android:textSize="28dp" />
-
-        <Spinner
-            android:id="@+id/spinner_category"
-            android:layout_width="wrap_content"
-            android:layout_height="49dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:entries="@array/카테고리선택"
-            android:spinnerMode="dropdown" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/back1"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/save_place"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="보관장소"
-            android:textSize="28dp" />
-
-        <Spinner
-            android:id="@+id/save_place_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="49dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:entries="@array/보관장소" />
-    </LinearLayout>
-</LinearLayout>
-
-<Button
-    android:id="@+id/button_save"
-    android:layout_width="190dp"
-    android:layout_height="wrap_content"
-    android:background="#6200ee"
-    android:text="SAVE"
-    android:textColor="#ffffff" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

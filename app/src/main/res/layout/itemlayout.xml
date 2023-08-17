@@ -1,115 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    android:elevation="5dp"
+    android:background="#ffffff"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp">
 
-    <LinearLayout
-
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-
-        android:layout_height="wrap_content"
-
-        android:orientation="horizontal">
-
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
         <ImageView
-
-            android:id="@+id/iconItem"
-
-            android:layout_width="75dp"
-
-            android:layout_height="75dp"
-            tools:srcCompat="@tools:sample/avatars" />
-
-
-        <LinearLayout
-
-            android:layout_width="280dp"
-
-            android:layout_height="match_parent"
-
-            android:orientation="vertical">
-
-
-            <TextView
-
-                android:id="@+id/prname_layout"
-                android:layout_width="match_parent"
-
-                android:layout_height="wrap_content"
-
-                android:gravity="left"
-
-                android:text="상품명"
-
-                android:textSize="20dp"
-                android:textColor="#000000"/>
-
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-
-                android:layout_height="wrap_content"
-
-                android:layout_gravity="bottom"
-
-                android:orientation="horizontal">
-
-
-                <TextView
-
-                    android:id="@+id/dataItem02"
-
-                    android:layout_width="wrap_content"
-
-                    android:layout_height="match_parent"
-
-                    android:gravity="left"
-
-                    android:text="유통기한"
-                    android:textSize="14dp"
-
-                    android:layout_weight="0.7"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="7dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="카테고리" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="62dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="보관장소" />
-            </LinearLayout>
-
-
-        </LinearLayout>
+            android:id="@+id/itemIconImageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            tools:srcCompat="@tools:sample/avatars"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/expirationDateTextView"
+            android:layout_marginEnd="10dp"/>
 
         <TextView
-            android:id="@+id/DAYTEXT"
+            android:id="@+id/prNameTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="상품명"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/expirationDateTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/itemIconImageView"
+            app:layout_constraintBottom_toTopOf="@id/expirationDateTextView"
+            android:padding="5dp"/>
+
+        <TextView
+            android:id="@+id/expirationDateTextView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:text="유통기한"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/itemIconImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/prNameTextView"
+            app:layout_constraintBottom_toTopOf="@+id/categoryTextView"
+            android:padding="5dp"/>
+
+
+        <TextView
+            android:id="@+id/categoryTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintHorizontal_weight="1"
+            android:text="카테고리"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/expirationDateTextView"
+            app:layout_constraintTop_toBottomOf="@id/expirationDateTextView"
+            app:layout_constraintBottom_toBottomOf="@id/itemIconImageView"
+            app:layout_constraintEnd_toStartOf="@+id/savedPlaceTextView"
+            android:padding="5dp"/>
+
+        <TextView
+            android:id="@+id/savedPlaceTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintHorizontal_weight="1"
+            android:text="보관장소"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/categoryTextView"
+            app:layout_constraintTop_toTopOf="@id/categoryTextView"
+            app:layout_constraintBottom_toBottomOf="@id/categoryTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="5dp"/>
+
+        <TextView
+            android:id="@+id/remainDateTextView"
             android:layout_width="wrap_content"
-            android:layout_height="65dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="남은날짜"
-            android:textSize="20dp" />
+            android:textStyle="bold"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/prNameTextView"
+            app:layout_constraintBottom_toBottomOf="@id/categoryTextView"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

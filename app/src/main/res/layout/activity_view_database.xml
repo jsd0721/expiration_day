@@ -1,65 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ViewDatabaseActivity" >
-
-    <TextView
-        android:id="@+id/empty_view2"
+    tools:context=".ViewDatabaseActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mainActivityToolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/menu_main_activity_toopbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:title=""
+        android:background="@color/white"
+        android:elevation="5dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/itemRCView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainActivityToolbar"
+        tools:listitem="@layout/itemlayout" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/reg_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:layout_weight="1"
-        android:gravity="center"
-        android:text="제품을 등록해 주세요"
-        android:textSize="30dp"
-        android:drawableTop="@drawable/pizzaicon"
-        android:drawablePadding="-450dp"
-        android:visibility="gone" />
+        android:backgroundTint="#f39c12"
+        android:contentDescription="add button"
+        android:src="@drawable/ic_add"
+        android:text="등록"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:fabCustomSize="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <ListView
-        android:id="@+id/product_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" >
-
-    </ListView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="6">
-
-        <Button
-            android:id="@+id/edit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="편집"
-            android:background="@drawable/butt"
-            android:textSize="30dp"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/reg_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="등록"
-            android:textSize="30dp"
-            android:background="@drawable/butt"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/Inquire_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="조회"
-            android:textSize="30dp"
-            android:background="@drawable/butt"
-            android:visibility="visible" />
-    </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

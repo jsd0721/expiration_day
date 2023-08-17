@@ -5,4 +5,8 @@
     <color name="colorAccent">#D81B60</color>
     <color name="materlal_Save">#6200ee</color>
     <color name="material_Save_Primary">#3700b3</color>
+    <color name="white">#ffffff</color>
+    <color name="themeOrange">#FD8D14</color>
+    <color name="themeOrangeSoft">#FFB07F</color>
+    <color name="mainThemeColor">#f1c40f</color>
 </resources>

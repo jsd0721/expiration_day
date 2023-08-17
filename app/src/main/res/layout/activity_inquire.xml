@@ -1,109 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/editSearch"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search"
+        android:textSize="17sp"
+        android:padding="15dp"
+        android:background="@drawable/spinner_theme"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="10dp"
+        android:drawableStart="@drawable/baseline_search_24"
+        android:drawablePadding="5dp"/>
 
-        android:orientation="vertical">
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:entries="@array/카테고리선택"
+        android:spinnerMode="dropdown"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toBottomOf="@+id/editSearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerSavePlace"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/spinner_theme"
+        android:padding="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"/>
 
+    <Spinner
+        android:id="@+id/spinnerSavePlace"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:entries="@array/보관장소"
+        android:spinnerMode="dropdown"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/spinnerCategory"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerCategory"
+        app:layout_constraintStart_toEndOf="@+id/spinnerCategory"
+        android:background="@drawable/spinner_theme"
+        android:padding="15dp"
+        android:layout_marginEnd="10dp"
+        app:layout_goneMarginStart="5dp"/>
 
-        <EditText
-            android:id="@+id/editSearch"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="검색어를 입력하세요."
-            android:background="@drawable/spinner_theme"
-            />
-        <TextView
-            android:id="@+id/space1"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text=" "
-            android:textSize="20dp"/>
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="검색"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSavePlace"
+        app:layout_constraintBottom_toTopOf="@+id/inquireRcView"
+        android:layout_marginEnd="10dp" />
 
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/back1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/food_spinner_name"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text=""
-                android:textSize="20dp"/>
-
-            <TextView
-                android:id="@+id/food"
-                android:layout_width="205dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="식품종류"
-                android:background="@drawable/back1"
-                android:textSize="25dp" />
-
-            <TextView
-                android:id="@+id/save"
-                android:layout_width="205dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="보관장소"
-                android:textSize="25dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Spinner
-                android:id="@+id/spinner_food"
-                android:layout_width="205dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:entries="@array/카테고리선택"
-                android:spinnerMode="dropdown"></Spinner>
-
-            <Spinner
-                android:id="@+id/spinner_save"
-                android:layout_width="205dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:entries="@array/보관장소"
-                android:spinnerMode="dropdown"></Spinner>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/back1"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="검색"
-                android:background="@drawable/buttt"
-                android:layout_gravity="end"/>
-
-            <ListView
-                android:id="@+id/listview"
-                android:background="@drawable/back2"
-                android:layout_width="410dp"
-                android:layout_height="531dp"
-                android:divider="#999999">
-
-            </ListView>
-        </LinearLayout>
-
-    </LinearLayout>
-</LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/inquireRcView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchButton"
+        android:layout_margin="10dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
