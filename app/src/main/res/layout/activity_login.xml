@@ -7,16 +7,16 @@
     tools:context=".LoginActivity"
     android:background="@color/mainThemeColor">
 
-    <androidx.constraintlayout.utils.widget.ImageFilterView
+    <ImageView
         android:id="@+id/titleImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/titleText"
-        app:layout_constraintVertical_chainStyle="packed"
-        android:src="@drawable/fridge_cover"/>
+        app:layout_constraintBottom_toTopOf="@id/titleText"
+        android:src="@drawable/fridge_cover"
+        app:layout_constraintVertical_chainStyle="packed"/>
 
     <TextView
         android:id="@+id/titleText"
@@ -25,38 +25,82 @@
         android:text="얼마나 남았니"
         android:textColor="#000000"
         android:textStyle="bold"
-        android:textSize="30sp"
+        android:textSize="35sp"
         app:layout_constraintTop_toBottomOf="@+id/titleImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/subTitle"/>
+        app:layout_constraintBottom_toTopOf="@id/idEditTextLoginActivity"/>
 
-    <TextView
-        android:id="@+id/subTitle"
-        android:layout_width="wrap_content"
+
+    <EditText
+        android:id="@+id/idEditTextLoginActivity"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="유통기한 관리를 한번에!"
+        app:layout_constraintStart_toStartOf="@id/titleText"
+        app:layout_constraintEnd_toEndOf="@id/titleText"
         app:layout_constraintTop_toBottomOf="@id/titleText"
+        app:layout_constraintBottom_toTopOf="@id/passwordEditTextLoginActivity"
+        android:background="@drawable/edittext_login"
+        android:padding="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:drawableStart="@drawable/ic_id"/>
+
+
+    <EditText
+        android:id="@+id/passwordEditTextLoginActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/idEditTextLoginActivity"
+        app:layout_constraintEnd_toEndOf="@id/idEditTextLoginActivity"
+        app:layout_constraintTop_toBottomOf="@id/idEditTextLoginActivity"
         app:layout_constraintBottom_toTopOf="@id/startButton"
-        app:layout_constraintStart_toStartOf="@id/startButton"
-        app:layout_constraintEnd_toEndOf="@id/startButton"/>
+        android:background="@drawable/edittext_login"
+        android:padding="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="5dp"
+        android:drawableStart="@drawable/ic_password"/>
 
     <Button
         android:id="@+id/startButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/btn_start"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="시작하기"
+        android:paddingStart="10dp"
+        android:text="Login"
         android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/joinButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLoginActivity"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/joinButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/btn_start"
+        android:backgroundTint="@color/white"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="회원가입"
+        android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/startButton"
+        android:layout_marginTop="10dp"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

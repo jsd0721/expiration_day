@@ -6,5 +6,5 @@ import retrofit2.http.POST
 
 interface MyRetrofitService{
     @POST("")
-    fun getAllItems() : Call<Array<ProductItemDTO>>
+
 }

@@ -10,13 +10,15 @@ tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/food"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_pictureadd"
+        android:padding="30dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/productNameEditText"
+        app:layout_constraintVertical_chainStyle="packed"/>
 
     <EditText
         android:id="@+id/productNameEditText"
@@ -26,11 +28,13 @@ tools:context=".MainActivity">
         android:textSize="15sp"
         android:background="@drawable/spinner_theme"
         android:padding="15dp"
-        android:layout_margin="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        android:inputType="text" />
+        android:inputType="text"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/monthEditText"/>
 
     <EditText
         android:id="@+id/yearEditText"
@@ -59,6 +63,7 @@ tools:context=".MainActivity">
         app:layout_constraintStart_toEndOf="@+id/yearEditText"
         app:layout_constraintEnd_toStartOf="@+id/dayEditText"
         app:layout_constraintTop_toBottomOf="@+id/productNameEditText"
+        app:layout_constraintBottom_toTopOf="@id/categoryText"
         android:layout_marginTop="10dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
@@ -93,7 +98,7 @@ tools:context=".MainActivity">
         app:layout_constraintStart_toStartOf="@+id/productNameEditText"
         app:layout_constraintTop_toBottomOf="@+id/yearEditText"
         app:layout_constraintBottom_toTopOf="@id/save_place"
-        app:layout_constraintEnd_toStartOf="@+id/categorySpinner"/>
+        app:layout_constraintEnd_toStartOf="@+id/categorySpinner" />
 
     <Spinner
         android:id="@+id/categorySpinner"
@@ -119,7 +124,8 @@ tools:context=".MainActivity">
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/savePlaceSpinner"
         app:layout_constraintStart_toStartOf="@id/productNameEditText"
-        app:layout_constraintTop_toBottomOf="@+id/categoryText" />
+        app:layout_constraintTop_toBottomOf="@+id/categoryText"
+        app:layout_constraintBottom_toTopOf="@id/button_save"/>
 
     <Spinner
         android:id="@+id/savePlaceSpinner"
@@ -130,20 +136,22 @@ tools:context=".MainActivity">
         app:layout_constraintBottom_toBottomOf="@id/save_place"
         app:layout_constraintStart_toEndOf="@+id/save_place"
         app:layout_constraintEnd_toEndOf="@id/productNameEditText"
-        android:padding="5dp"/>
+        android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="id_button"/>
 
     <Button
         android:id="@+id/button_save"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_apply"
         android:layout_marginTop="20dp"
-        android:textColor="#ffffff"
-        android:text="SAVE"
+        android:background="@drawable/button_apply"
         android:padding="20dp"
-        app:layout_constraintStart_toStartOf="@id/productNameEditText"
+        android:text="SAVE"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/productNameEditText"
+        app:layout_constraintStart_toStartOf="@id/productNameEditText"
         app:layout_constraintTop_toBottomOf="@id/savePlaceSpinner"
-        />
+        android:layout_marginBottom="80dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
