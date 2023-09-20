@@ -5,15 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import com.example.expiraton_date.databinding.ActivityLoginBinding
+import com.example.expiraton_date.databinding.ActivityStartBinding
 
-class LoginActivity : AppCompatActivity(), View.OnClickListener {
-
-    private val binding : ActivityLoginBinding by lazy{
-        ActivityLoginBinding.inflate(layoutInflater)
-    }
+class StartActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var startButton : Button
+    private val binding : ActivityStartBinding by lazy{
+        ActivityStartBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +23,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
-        val mainActivityIntent : Intent = Intent(this,ViewDatabaseActivity::class.java)
+        val mainActivityIntent = Intent(this,ViewDatabaseActivity::class.java)
         startActivity(mainActivityIntent)
         finish()
     }

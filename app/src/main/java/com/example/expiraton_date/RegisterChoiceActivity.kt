@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.expiraton_date.databinding.ActivityRegisterBinding
 import com.google.zxing.integration.android.IntentIntegrator
 
-class RegisterChoiseActivity : AppCompatActivity(), View.OnClickListener {
+class RegisterChoiceActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var registerByBarcodeButton : ImageButton
     private lateinit var registerByDirectButton : Button
@@ -37,7 +37,7 @@ class RegisterChoiseActivity : AppCompatActivity(), View.OnClickListener {
         when(view){
             registerByBarcodeButton->{
                 //세로모드 바코드 리더
-                val integrator = IntentIntegrator(this@RegisterChoiseActivity)
+                val integrator = IntentIntegrator(this@RegisterChoiceActivity)
                 integrator.setPrompt("바코드를 읽혀 주세요")
                 integrator.setBeepEnabled(false)
                 integrator.setOrientationLocked(false)
@@ -55,8 +55,8 @@ class RegisterChoiseActivity : AppCompatActivity(), View.OnClickListener {
         if (result != null) {
             if (result.contents == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(this,"$data",Toast.LENGTH_SHORT).show()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

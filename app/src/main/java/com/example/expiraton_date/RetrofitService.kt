@@ -1,7 +1,6 @@
 package com.example.expiraton_date
 
-import com.example.expiraton_date.Retrofit.MyRetrofitService
-import com.example.expiraton_date.domain.ProductItemDTO
+import com.example.expiraton_date.retrofit.MyRetrofitService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

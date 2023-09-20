@@ -136,8 +136,8 @@ tools:context=".MainActivity">
         app:layout_constraintBottom_toBottomOf="@id/save_place"
         app:layout_constraintStart_toEndOf="@+id/save_place"
         app:layout_constraintEnd_toEndOf="@id/productNameEditText"
-        android:padding="5dp"
-        app:layout_constraintBottom_toTopOf="id_button"/>
+        app:layout_constraintBottom_toTopOf="@id/button_save"
+        android:padding="5dp"/>
 
     <Button
         android:id="@+id/button_save"

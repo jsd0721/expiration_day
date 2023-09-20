@@ -7,11 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expiraton_date.databinding.ItemlayoutBinding
+import com.example.expiraton_date.domain.ProductItemInRecyclerViewDTO
 
-class RcViewAdapter(context: Context, list:MutableList<ProductItemDTO>) : RecyclerView.Adapter<RcViewAdapter.MyViewHolder>() {
+class RcViewAdapter(context: Context, list:MutableList<ProductItemInRecyclerViewDTO>) : RecyclerView.Adapter<RcViewAdapter.MyViewHolder>() {
 
     /*binding*/
-    private val itemList : MutableList<ProductItemDTO> = list
+    private val itemList : MutableList<ProductItemInRecyclerViewDTO> = list
     private val adapterContext = context
     class MyViewHolder(binding: ItemlayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 

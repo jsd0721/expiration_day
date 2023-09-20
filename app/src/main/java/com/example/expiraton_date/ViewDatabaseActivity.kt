@@ -4,13 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expiraton_date.databinding.ActivityViewDatabaseBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.expiraton_date.domain.ProductItemInRecyclerViewDTO
+import com.example.expiraton_date.sqliteRoom.ProductDatabase
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.Date
 
 class ViewDatabaseActivity : AppCompatActivity(),OnClickListener {
 
@@ -25,32 +29,85 @@ class ViewDatabaseActivity : AppCompatActivity(),OnClickListener {
     }
 
     /*ItemList in RecyclerView*/
-    private val itemList : MutableList<ProductItemDTO> = mutableListOf()
+    private var itemList : MutableList<ProductItemInRecyclerViewDTO> = mutableListOf()
 
     /*recyclerView parts*/
     private lateinit var layoutManager : LinearLayoutManager
     private lateinit var rcViewAdapter :RcViewAdapter
 
+    private val database by lazy{
+        ProductDatabase.getInstance(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        rcViewAdapter = RcViewAdapter(this,itemList)
-
         bindView()
     }
 
-    private fun bindView() {
+    override fun onStart() {
+        super.onStart()
 
+    }
+
+    private fun bindView() {
+        //component binding
         registerButton = binding.regButton
         itemRCView = binding.itemRCView
 
+        //inquire and bind data with recyclerview
+        Thread{
+            inquireAllItem()
+            runOnUiThread{
+                layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+                rcViewAdapter = RcViewAdapter(this,itemList)
+
+                itemRCView.adapter = rcViewAdapter
+                itemRCView.layoutManager = layoutManager
+            }
+        }
+
+
         registerButton.setOnClickListener(this)
 
-        itemRCView.adapter = rcViewAdapter
-        itemRCView.layoutManager = layoutManager
 
+    }
+
+    private fun inquireAllItem(){
+        val inquiredProducts = database!!.productTableDao().getAllItem()
+
+        if(itemList.size>0){
+            itemList.clear()
+        }
+
+        for(elem in inquiredProducts){
+            val currentDate = LocalDate.now().toString()
+            val expirationDate = elem.productExpirationDate
+
+            val remainDate = calculateRemainDate(SimpleDateFormat("yyyy-mm-dd").parse(currentDate),SimpleDateFormat("yyyy-mm-dd").parse(expirationDate))
+
+            val tempDTO = ProductItemInRecyclerViewDTO(
+                    elem.productImage,
+                    elem.productName,
+                    elem.productExpirationDate,
+                    elem.savePlace,
+                    elem.category,
+                    remainDate
+            )
+            itemList.add(tempDTO)
+        }
+    }
+
+    private fun calculateRemainDate(startDate : Date, endDate : Date) : Int {
+        val startDateTime : Long = startDate.time
+        val endDateTime : Long = endDate.time
+
+        val result = endDateTime-startDateTime
+        return when(result%86400*1000){
+            0L -> (result/86400*1000).toInt()
+            else-> (result/86400*1000+1).toInt()
+        }
     }
 
     override fun onBackPressed() {
@@ -68,7 +125,7 @@ class ViewDatabaseActivity : AppCompatActivity(),OnClickListener {
     override fun onClick(view: View?) {
         lateinit var intent : Intent
         when(view){
-            registerButton->intent = Intent(this, RegisterChoiseActivity::class.java)
+            registerButton->intent = Intent(this, RegisterChoiceActivity::class.java)
         }
         startActivity(intent)
     }

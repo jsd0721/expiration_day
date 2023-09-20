@@ -1,11 +1,9 @@
 package com.example.expiraton_date.domain
 
-import java.util.Date
-
-data class ProductItemDTO(
+data class ProductItemInRecyclerViewDTO(
     val image : Int,
     val productName : String,
-    val expirationDate : Date,
+    val expirationDate : String,
     val savedPlace : String,
     val category : String,
     val remainDate: Int
