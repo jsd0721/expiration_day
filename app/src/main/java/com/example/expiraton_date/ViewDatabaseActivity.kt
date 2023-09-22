@@ -4,14 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expiraton_date.databinding.ActivityViewDatabaseBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.example.expiraton_date.domain.ProductItemInRecyclerViewDTO
 import com.example.expiraton_date.sqliteRoom.ProductDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Date
@@ -21,6 +26,7 @@ class ViewDatabaseActivity : AppCompatActivity(),OnClickListener {
     /*components*/
     private lateinit var itemRCView : RecyclerView
     private lateinit var registerButton : FloatingActionButton
+    private lateinit var imageWhenEmpty : ImageView
 
     private var backPressedTime : Long = 0L
 
@@ -49,51 +55,72 @@ class ViewDatabaseActivity : AppCompatActivity(),OnClickListener {
     override fun onStart() {
         super.onStart()
 
+        CoroutineScope(Dispatchers.IO).launch{
+            inquireAllItem()
+            CoroutineScope(Dispatchers.Main).launch{
+                viewChange()
+            }
+        }
     }
 
     private fun bindView() {
         //component binding
         registerButton = binding.regButton
         itemRCView = binding.itemRCView
+        imageWhenEmpty = binding.imageWhenEmpty
 
-        //inquire and bind data with recyclerview
-        Thread{
-            inquireAllItem()
-            runOnUiThread{
-                layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-                rcViewAdapter = RcViewAdapter(this,itemList)
+        layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        rcViewAdapter = RcViewAdapter(applicationContext,itemList)
 
-                itemRCView.adapter = rcViewAdapter
-                itemRCView.layoutManager = layoutManager
+        itemRCView.adapter = rcViewAdapter
+        itemRCView.layoutManager = layoutManager
+
+        registerButton.setOnClickListener(this)
+    }
+
+    private fun viewChange() {
+        when (itemList.size) {
+            0 -> {
+                itemRCView.visibility = View.GONE
+                imageWhenEmpty.visibility = View.VISIBLE
+            }
+
+            else -> {
+                itemRCView.visibility = View.VISIBLE
+                imageWhenEmpty.visibility = View.GONE
             }
         }
 
-
-        registerButton.setOnClickListener(this)
-
-
+        rcViewAdapter.notifyDataSetChanged()
     }
 
     private fun inquireAllItem(){
+
+//      1.데이터를 데이터베이스에서 갸져옴
         val inquiredProducts = database!!.productTableDao().getAllItem()
 
+//      2.리사이클러뷰에 넘겨줄 데이터 리스트가 비어있지 않다면 비워줌(새로 데이터를 채워서 갱신시키기 위함)
         if(itemList.size>0){
             itemList.clear()
         }
 
-        for(elem in inquiredProducts){
+//      3.조회한 데이터들을 리스트에 추가함
+        for(elem in inquiredProducts) {
             val currentDate = LocalDate.now().toString()
             val expirationDate = elem.productExpirationDate
 
-            val remainDate = calculateRemainDate(SimpleDateFormat("yyyy-mm-dd").parse(currentDate),SimpleDateFormat("yyyy-mm-dd").parse(expirationDate))
+            val remainDate = calculateRemainDate(
+                SimpleDateFormat("yyyy-mm-dd").parse(currentDate),
+                SimpleDateFormat("yyyy-mm-dd").parse(expirationDate)
+            )
 
             val tempDTO = ProductItemInRecyclerViewDTO(
-                    elem.productImage,
-                    elem.productName,
-                    elem.productExpirationDate,
-                    elem.savePlace,
-                    elem.category,
-                    remainDate
+                elem.productImage,
+                elem.productName,
+                elem.productExpirationDate,
+                elem.savePlace,
+                elem.category,
+                remainDate
             )
             itemList.add(tempDTO)
         }

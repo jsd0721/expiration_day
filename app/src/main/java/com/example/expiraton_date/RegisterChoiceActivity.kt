@@ -48,6 +48,7 @@ class RegisterChoiceActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
         }
+        finish()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

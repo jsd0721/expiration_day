@@ -17,6 +17,10 @@ import androidx.core.content.ContextCompat
 import com.example.expiraton_date.databinding.ActivityMainBinding
 import com.example.expiraton_date.sqliteRoom.ProductDatabase
 import com.example.expiraton_date.sqliteRoom.ProductTable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.lang.Exception
 import java.text.SimpleDateFormat
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -85,13 +89,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(grantResults.isNotEmpty() &&grantResults[0]==PackageManager.PERMISSION_GRANTED){
-            true->{
-                Log.d("TAG","$permissions : $grantResults")
-            }
-            false->{
-                Toast.makeText(this,"권한 허용이 필요합니다.",Toast.LENGTH_SHORT).show()
-                finish()
+        when(requestCode){
+            0x000001->{
+                if(grantResults.isNotEmpty() &&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    Log.d("TAG","$permissions : $grantResults")
+                }else{
+                    Toast.makeText(this,"권한 허용이 필요합니다.",Toast.LENGTH_SHORT).show()
+                    finish()
+                }
             }
         }
     }
@@ -121,9 +126,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     .setTitle("알림")
                     .setMessage("저장하시겠습니까?")
                     .setPositiveButton("확인", DialogInterface.OnClickListener {_, _ ->
-                        database!!.productTableDao().saveProduct(productDTO)
-                        Toast.makeText(this,"저장되었습니다.",Toast.LENGTH_SHORT).show()
-                        finish()
+                        CoroutineScope(Dispatchers.IO).launch{
+                            try{
+                                database!!.productTableDao().saveProduct(productDTO)
+                            }catch(err : Exception){
+                                Log.d("Error",err.toString())
+                            }
+                            finish()
+                        }
+                        Toast.makeText(this,"저장되었습니다",Toast.LENGTH_SHORT).show()
                     })
                     .setNegativeButton("취소",DialogInterface.OnClickListener{_,_->
                         Toast.makeText(this,"취소되었습니다.",Toast.LENGTH_SHORT).show()
