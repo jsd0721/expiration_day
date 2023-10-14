@@ -1,6 +1,7 @@
 package com.example.expiraton_date
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -34,12 +35,23 @@ class RcViewAdapter(context: Context, list:MutableList<ProductItemInRecyclerView
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val remainDate = itemList[position].remainDate.toString()
+
         holder.productNameTextView.text = itemList[position].productName
         holder.expirationDateTextView.text = itemList[position].expirationDate
         holder.categoryTextView.text = itemList[position].category
         holder.savedPlaceTextView.text = itemList[position].savedPlace
-        holder.remainDateTextView.text = itemList[position].remainDate.toString()
+        holder.remainDateTextView.text = remainDate + "일"
+        holder.remainDateTextView.setTextColor(setTextColorInRecyclerView(remainDate))
         holder.iconImageView.imageAlpha = itemList[position].image
+    }
+
+    fun setTextColorInRecyclerView(day : String) : Int{
+        return when(day.toInt()){
+            in 0..3-> Color.parseColor("#D80032")
+            in 4..7-> Color.parseColor("#E9B824")
+            else-> Color.parseColor("#004225")
+        }
     }
 
 }

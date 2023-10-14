@@ -102,19 +102,30 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
+
+        if(productName.text.equals(" ")||expirationDateYear.text.equals(" ")||expirationDateMonth.text.equals(" ")||expirationDateDay.text.equals(" ")||categorySpinner.selectedItem.toString() == " "||savePlaceSpinner.selectedItem.toString() == " "){
+            Toast.makeText(this,"모든 항목을 입력해 주세요",Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val year = expirationDateYear.text.toString()
+        val month = expirationDateMonth.text.toString()
+        val day = expirationDateDay.text.toString()
+
+
         val dateformat = SimpleDateFormat("yyyy-mm-dd")
         val imageValue = productImage.imageAlpha
         val productNameValue = productName.text.toString()
-        val expirationDate = "${expirationDateYear.text.toString()}-${expirationDateMonth.text.toString()}-${expirationDateDay.text.toString()}"
         val categoryValue = categorySpinner.selectedItem.toString()
         val savedPlaceValue = savePlaceSpinner.selectedItem.toString()
+        val expirationDate = "$year-$month-$day"
 
         val productDTO = ProductTable(
-            productName = productNameValue,
-            productExpirationDate = expirationDate,
-            category = categoryValue,
-            savePlace = savedPlaceValue,
-            productImage = imageValue
+                productName = productNameValue,
+                productExpirationDate = expirationDate,
+                category = categoryValue,
+                savePlace = savedPlaceValue,
+                productImage = imageValue
         )
 
         when(view){
@@ -122,27 +133,36 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             }
             saveButton->{
-                val builder = AlertDialog.Builder(this)
-                    .setTitle("알림")
-                    .setMessage("저장하시겠습니까?")
-                    .setPositiveButton("확인", DialogInterface.OnClickListener {_, _ ->
-                        CoroutineScope(Dispatchers.IO).launch{
-                            try{
-                                database!!.productTableDao().saveProduct(productDTO)
-                            }catch(err : Exception){
-                                Log.d("Error",err.toString())
-                            }
-                            finish()
-                        }
-                        Toast.makeText(this,"저장되었습니다",Toast.LENGTH_SHORT).show()
-                    })
-                    .setNegativeButton("취소",DialogInterface.OnClickListener{_,_->
-                        Toast.makeText(this,"취소되었습니다.",Toast.LENGTH_SHORT).show()
-                    })
-                val alertDialog = builder.create()
-                alertDialog.show()
+
+//              날짜 텍스트 유효성 검사 후 다음 로직 수행.
+                if(month.toInt() in 1..12 && day.toInt() in 1..31){
+//                  얼럿 다이얼로그 빌더 생성
+                    val builder = AlertDialog.Builder(this)
+                            .setTitle("알림")
+                            .setMessage("저장하시겠습니까?")
+//                          긍정 버튼 누르면 데이터베이스에 데이터 저장 후 메시지 띄우고 이전 화면으로 돌아가기
+                            .setPositiveButton("확인", DialogInterface.OnClickListener {_, _ ->
+                                CoroutineScope(Dispatchers.IO).launch{
+                                    try{
+                                        database!!.productTableDao().saveProduct(productDTO)
+                                    }catch(err : Exception){
+                                        Log.d("Error",err.toString())
+                                    }
+                                    finish()
+                                }
+                                Toast.makeText(this,"저장되었습니다",Toast.LENGTH_SHORT).show()
+                            })
+//                          부정 버튼 누르면 모든 로직 취소 후 메시지 띄움.
+                            .setNegativeButton("취소",DialogInterface.OnClickListener{_,_->
+                                Toast.makeText(this,"취소되었습니다.",Toast.LENGTH_SHORT).show()
+                            })
+                    val alertDialog = builder.create()
+                    alertDialog.show()
+                }else{
+                    Toast.makeText(this,"날짜를 확인해 주세요",Toast.LENGTH_SHORT).show()
+                    return
+                }
             }
         }
-
     }
 }

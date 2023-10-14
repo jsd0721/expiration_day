@@ -2,6 +2,7 @@ package com.example.expiraton_date
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.ImageView
@@ -109,10 +110,12 @@ class ViewDatabaseActivity : AppCompatActivity(),OnClickListener {
             val currentDate = LocalDate.now().toString()
             val expirationDate = elem.productExpirationDate
 
-            val remainDate = calculateRemainDate(
-                SimpleDateFormat("yyyy-mm-dd").parse(currentDate),
-                SimpleDateFormat("yyyy-mm-dd").parse(expirationDate)
-            )
+            val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+
+            Log.d("calculatedDateTag","startDate : $currentDate, endDate : $expirationDate")
+            Log.d("afterDataFormated","currentDate : ${SimpleDateFormat("yyyy-MM-dd",).parse(currentDate)},expirationDate : ${SimpleDateFormat("yyyy-MM-dd").parse(expirationDate)}")
+
+            val remainDate = calculateRemainDate(simpleDateFormat.parse(currentDate),simpleDateFormat.parse(expirationDate))
 
             val tempDTO = ProductItemInRecyclerViewDTO(
                 elem.productImage,
@@ -127,14 +130,14 @@ class ViewDatabaseActivity : AppCompatActivity(),OnClickListener {
     }
 
     private fun calculateRemainDate(startDate : Date, endDate : Date) : Int {
+
         val startDateTime : Long = startDate.time
         val endDateTime : Long = endDate.time
 
         val result = endDateTime-startDateTime
-        return when(result%86400*1000){
-            0L -> (result/86400*1000).toInt()
-            else-> (result/86400*1000+1).toInt()
-        }
+
+        Log.d("resultValue","result : ${result / (86400 * 1000)}")
+        return (result / (86400 * 1000)).toInt()
     }
 
     override fun onBackPressed() {
