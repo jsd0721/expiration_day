@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="보관장소">
-        <item></item>
-        <item>냉장고</item>
-        <item>찬장</item>
-        <item>화장대</item>
-    </string-array>
-</resources>

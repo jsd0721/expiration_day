@@ -9,7 +9,7 @@ android:orientation="vertical"
 tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/productImageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/ic_pictureadd"
@@ -30,7 +30,7 @@ tools:context=".MainActivity">
         android:padding="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/productImageView"
         android:inputType="text"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
@@ -97,7 +97,7 @@ tools:context=".MainActivity">
         android:layout_margin="15dp"
         app:layout_constraintStart_toStartOf="@+id/productNameEditText"
         app:layout_constraintTop_toBottomOf="@+id/yearEditText"
-        app:layout_constraintBottom_toTopOf="@id/save_place"
+        app:layout_constraintBottom_toTopOf="@id/savedPlaceText"
         app:layout_constraintEnd_toStartOf="@+id/categorySpinner" />
 
     <Spinner
@@ -105,7 +105,7 @@ tools:context=".MainActivity">
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:entries="@array/카테고리선택"
+        android:entries="@array/category"
         android:spinnerMode="dropdown"
         app:layout_constraintTop_toTopOf="@id/categoryText"
         app:layout_constraintBottom_toBottomOf="@+id/categoryText"
@@ -114,7 +114,7 @@ tools:context=".MainActivity">
         android:padding="5dp"/>
 
     <TextView
-        android:id="@+id/save_place"
+        android:id="@+id/savedPlaceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
@@ -131,10 +131,10 @@ tools:context=".MainActivity">
         android:id="@+id/savePlaceSpinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:entries="@array/보관장소"
-        app:layout_constraintTop_toTopOf="@id/save_place"
-        app:layout_constraintBottom_toBottomOf="@id/save_place"
-        app:layout_constraintStart_toEndOf="@+id/save_place"
+        android:entries="@array/saved_place"
+        app:layout_constraintTop_toTopOf="@id/savedPlaceText"
+        app:layout_constraintBottom_toBottomOf="@id/savedPlaceText"
+        app:layout_constraintStart_toEndOf="@+id/savedPlaceText"
         app:layout_constraintEnd_toEndOf="@id/productNameEditText"
         app:layout_constraintBottom_toTopOf="@id/button_save"
         android:padding="5dp"/>

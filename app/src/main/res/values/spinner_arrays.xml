@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="카테고리선택">
+    <string-array name="category">
         <item></item>
         <item>장기보관식품</item>
         <item>유제품</item>
@@ -11,5 +11,12 @@
         <item>식재료</item>
         <item>화장품</item>
         <item>간편식품</item>
+    </string-array>
+
+    <string-array name="saved_place">
+        <item></item>
+        <item>냉장고</item>
+        <item>찬장</item>
+        <item>화장대</item>
     </string-array>
 </resources>

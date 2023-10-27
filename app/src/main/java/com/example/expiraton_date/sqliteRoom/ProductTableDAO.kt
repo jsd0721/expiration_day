@@ -12,6 +12,7 @@ interface ProductTableDAO {
     fun saveProduct(product : ProductTable)
 
     //Edit Product Query
+    //Update annotation is updated column by primary key
     @Update
     fun editProduct(product : ProductTable)
 
@@ -20,4 +21,7 @@ interface ProductTableDAO {
 
     @Query("DELETE FROM productTable where id = :id")
     fun deleteItem(id : Int)
+
+    @Query("SELECT * FROM productTable WHERE productName = :productName")
+    fun getItemWithName(productName : String) : ProductTable
 }

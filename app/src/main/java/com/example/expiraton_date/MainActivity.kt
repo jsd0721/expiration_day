@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun bindView() {
         //xml상에서의 개체들과 각 변수들 연결
-        productImage = binding.imageView
+        productImage = binding.productImageView
         productName = binding.productNameEditText
         expirationDateYear = binding.yearEditText
         expirationDateMonth = binding.monthEditText

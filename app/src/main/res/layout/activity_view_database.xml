@@ -11,7 +11,6 @@
         android:id="@+id/mainActivityToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/menu_main_activity_toopbar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +45,7 @@
         android:id="@+id/reg_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="25dp"
         android:layout_weight="1"
         android:backgroundTint="#f39c12"
         android:contentDescription="add button"
@@ -54,7 +53,7 @@
         android:text="등록"
         android:textSize="20sp"
         android:visibility="visible"
-        app:fabCustomSize="75dp"
+        app:fabCustomSize="65dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

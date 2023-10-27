@@ -3,11 +3,14 @@ package com.example.expiraton_date
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +31,7 @@ class ViewDatabaseActivity : AppCompatActivity(),OnClickListener {
     private lateinit var itemRCView : RecyclerView
     private lateinit var registerButton : FloatingActionButton
     private lateinit var imageWhenEmpty : ImageView
+    private lateinit var toolbar : Toolbar
 
     private var backPressedTime : Long = 0L
 
@@ -69,9 +73,12 @@ class ViewDatabaseActivity : AppCompatActivity(),OnClickListener {
         registerButton = binding.regButton
         itemRCView = binding.itemRCView
         imageWhenEmpty = binding.imageWhenEmpty
+        toolbar = binding.mainActivityToolbar
+
+        setSupportActionBar(toolbar)
 
         layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
-        rcViewAdapter = RcViewAdapter(applicationContext,itemList)
+        rcViewAdapter = RcViewAdapter(applicationContext,itemList,true)
 
         itemRCView.adapter = rcViewAdapter
         itemRCView.layoutManager = layoutManager
@@ -158,5 +165,29 @@ class ViewDatabaseActivity : AppCompatActivity(),OnClickListener {
             registerButton->intent = Intent(this, RegisterChoiceActivity::class.java)
         }
         startActivity(intent)
+    }
+
+//    툴바 메뉴 생성시 작동
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.menu_main_activity_toopbar,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.calendar->{
+                //TODO Intent CalendarActivity with itemList
+            }
+            R.id.search->{
+                intent = Intent(this@ViewDatabaseActivity,Inquire::class.java)
+                startActivity(intent)
+            }
+            R.id.setting->{
+
+            }
+
+        }
+        return true
     }
 }
