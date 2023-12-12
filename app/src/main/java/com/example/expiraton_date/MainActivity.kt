@@ -1,8 +1,11 @@
 package com.example.expiraton_date
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -35,6 +38,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var categorySpinner: Spinner
     private lateinit var savePlaceSpinner: Spinner
     private lateinit var saveButton: Button
+
+
+    val REQUEST_IMAGE_CAPTURE = 1
 
     private val database by lazy{
         ProductDatabase.getInstance(applicationContext)
@@ -103,7 +109,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View?) {
 
-        if(productName.text.equals(" ")||expirationDateYear.text.equals(" ")||expirationDateMonth.text.equals(" ")||expirationDateDay.text.equals(" ")||categorySpinner.selectedItem.toString() == " "||savePlaceSpinner.selectedItem.toString() == " "){
+        if(productName.text.equals("")||expirationDateYear.text.equals("")||expirationDateMonth.text.equals("")||expirationDateDay.text.equals("")||categorySpinner.selectedItem.toString() == ""||savePlaceSpinner.selectedItem.toString() == ""){
             Toast.makeText(this,"모든 항목을 입력해 주세요",Toast.LENGTH_SHORT).show()
             return
         }
@@ -130,7 +136,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         when(view){
             productImage->{
-
+                Intent(MediaStore.ACTION_IMAGE_CAPTURE).also{
+                    takePictureIntent-> takePictureIntent.resolveActivity(packageManager)?.also{
+                        startActivityForResult(takePictureIntent,REQUEST_IMAGE_CAPTURE)
+                    }
+                }
             }
             saveButton->{
 
@@ -163,6 +173,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     return
                 }
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            productImage.setImageBitmap(imageBitmap)
+
         }
     }
 }

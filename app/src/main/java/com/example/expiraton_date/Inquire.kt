@@ -76,9 +76,8 @@ class Inquire : AppCompatActivity(),OnClickListener {
         super.onStart()
 
         /*아이템의 중복 표시를 방지하기 위해 액티비티가 시작될때마다 list를 비워줌*/
-        if(tempItemList.size>0){
-            tempItemList.clear()
-        }
+
+        tempItemList.clear()
 
         runBlocking {
             CoroutineScope(Dispatchers.IO).launch {
@@ -167,5 +166,25 @@ class Inquire : AppCompatActivity(),OnClickListener {
 
         Log.d("resultValue","result : ${result / (86400 * 1000)}")
         return (result / (86400 * 1000)).toInt()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("LifeCycle","onResume()")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("LifeCycle","onStop()")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("LifeCycle","onDestroy()")
+    }
+
+    override fun onPause(){
+        super.onPause()
+        Log.d("LifeCycle","onPause()")
     }
 }
