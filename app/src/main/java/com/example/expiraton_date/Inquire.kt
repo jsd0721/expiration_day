@@ -157,6 +157,7 @@ class Inquire : AppCompatActivity(),OnClickListener {
         }
     }
 
+//  유통기한 남은 기간 계산해 주는 함수
     private fun calculateRemainDate(startDate : Date, endDate : Date) : Int {
 
         val startDateTime : Long = startDate.time

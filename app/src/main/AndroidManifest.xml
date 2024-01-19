@@ -10,8 +10,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!--    외부 저장소 권한 허가  -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--android version 13 이상일때-->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <!--android version 13 이하일때-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -20,7 +23,9 @@
         android:label="얼마나남았니?"
         android:roundIcon="@mipmap/ic_fridge_app_round"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/myTheme">
+
 
         <activity
             android:name=".StartActivity"
