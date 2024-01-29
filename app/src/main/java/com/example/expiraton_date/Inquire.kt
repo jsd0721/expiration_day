@@ -169,23 +169,4 @@ class Inquire : AppCompatActivity(),OnClickListener {
         return (result / (86400 * 1000)).toInt()
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("LifeCycle","onResume()")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("LifeCycle","onStop()")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("LifeCycle","onDestroy()")
-    }
-
-    override fun onPause(){
-        super.onPause()
-        Log.d("LifeCycle","onPause()")
-    }
 }

@@ -73,13 +73,14 @@
         android:layout_marginTop="10dp"/>
     <ImageView
         android:id="@+id/itemNotExistImage"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchButton"
         android:layout_margin="10dp"
+        android:padding="70dp"
         android:src="@drawable/item_not_inquired"/>
 
     <androidx.recyclerview.widget.RecyclerView

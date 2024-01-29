@@ -177,7 +177,8 @@ class ViewDatabaseActivity : AppCompatActivity(),OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.calendar->{
-                //TODO Intent CalendarActivity with itemList
+                intent = Intent(this@ViewDatabaseActivity,CalendarActivity::class.java)
+                startActivity(intent)
             }
             R.id.search->{
                 intent = Intent(this@ViewDatabaseActivity,Inquire::class.java)

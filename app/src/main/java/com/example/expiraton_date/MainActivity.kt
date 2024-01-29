@@ -16,7 +16,6 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.expiraton_date.databinding.ActivityMainBinding
 import com.example.expiraton_date.sqliteRoom.ProductDatabase

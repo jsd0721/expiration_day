@@ -24,4 +24,7 @@ interface ProductTableDAO {
 
     @Query("SELECT * FROM productTable WHERE productName = :productName")
     fun getItemWithName(productName : String) : ProductTable
+
+    @Query("SELECT * FROM productTable WHERE productExpirationDate = :date")
+    fun getItemWithExpirationDate(date : String) : MutableList<ProductTable>
 }
