@@ -27,10 +27,9 @@ import java.lang.Exception
 import java.text.SimpleDateFormat
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    var myadapter: RcViewAdapter? = null
 
     //넣을 값들 변수 설정
-    private lateinit var productImage : ImageView
+    private lateinit var productImage: ImageView
     private lateinit var productName: EditText
     private lateinit var expirationDateYear: EditText
     private lateinit var expirationDateMonth: EditText
@@ -42,22 +41,30 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     val REQUEST_IMAGE_CAPTURE = 1
 
-    private val database by lazy{
+    private val database by lazy {
         ProductDatabase.getInstance(applicationContext)
     }
 
-//   안드로이드 버전 따라 권한 설정하기
-    private val permissionList by lazy{
-        when(Build.VERSION.SDK_INT>=Build.VERSION_CODES.TIRAMISU){
-            true->
-                arrayOf(android.Manifest.permission.READ_MEDIA_IMAGES,android.Manifest.permission.CAMERA)
-            false->
-                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,android.Manifest.permission.READ_EXTERNAL_STORAGE,android.Manifest.permission.CAMERA)
+    //   안드로이드 버전 따라 권한 설정하기
+    private val permissionList by lazy {
+        when (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            true ->
+                arrayOf(
+                    android.Manifest.permission.READ_MEDIA_IMAGES,
+                    android.Manifest.permission.CAMERA
+                )
+
+            false ->
+                arrayOf(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.CAMERA
+                )
         }
     }
 
     //viewBinding
-    private val binding : ActivityMainBinding by lazy{
+    private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
@@ -84,31 +91,39 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         productImage.setOnClickListener(this)
     }
 
-//권한 설정 부분.
-    private fun checkPermission(){
-        for(permission in permissionList){
-            if(ContextCompat.checkSelfPermission(this,permission) == PackageManager.PERMISSION_GRANTED){
+    //권한 설정 부분.
+    private fun checkPermission() {
+        for (permission in permissionList) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    permission
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
                 continue
-            }else{
+            } else {
                 requestPermission()
             }
         }
 
     }
 
-    private fun requestPermission(){
-        requestPermissions(permissionList,0x000001)
+    private fun requestPermission() {
+        requestPermissions(permissionList, 0x000001)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        when(requestCode){
-            0x000001->{
-                if(grantResults.isNotEmpty()&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                    Log.d("TAG","$permissions : $grantResults")
-                }else{
-                    Toast.makeText(this,"권한 허용이 필요합니다.",Toast.LENGTH_SHORT).show()
+        when (requestCode) {
+            0x000001 -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("TAG", "$permissions : $grantResults")
+                } else {
+                    Toast.makeText(this, "권한 허용이 필요합니다.", Toast.LENGTH_SHORT).show()
                     finish()
                 }
             }
@@ -117,16 +132,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View?) {
 
-        when(view){
-            productImage->{
+        when (view) {
+            productImage -> {
                 checkPermission()
-                Intent(MediaStore.ACTION_IMAGE_CAPTURE).also{
-                    takePictureIntent-> takePictureIntent.resolveActivity(packageManager)?.also{
-                        startActivityForResult(takePictureIntent,REQUEST_IMAGE_CAPTURE)
+                Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                    takePictureIntent.resolveActivity(packageManager)?.also {
+                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
                     }
                 }
             }
-            saveButton->{
+
+            saveButton -> {
 
                 val dateformat = SimpleDateFormat("yyyy-mm-dd")
 
@@ -141,45 +157,45 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val expirationDate = "$year-$month-$day"
 
 //              날짜 텍스트 유효성 검사 후 다음 로직 수행.
-                if(productNameValue.equals("")||year.equals("")||month.equals("")||day.equals("")||categoryValue == ""||savedPlaceValue == ""){
-                    Toast.makeText(this,"모든 항목을 입력해 주세요",Toast.LENGTH_SHORT).show()
+                if (productNameValue == ("") || year == "" || month == ("") || day == ("") || categoryValue == "" || savedPlaceValue == "") {
+                    Toast.makeText(this, "모든 항목을 입력해 주세요", Toast.LENGTH_SHORT).show()
                     return
                 }
 
-                if(month.toInt() in 1..12 && day.toInt() in 1..31){
+                if (month.toInt() in 1..12 && day.toInt() in 1..31) {
 
                     val productDTO = ProductTable(
-                            productName = productNameValue,
-                            productExpirationDate = expirationDate,
-                            category = categoryValue,
-                            savePlace = savedPlaceValue,
-                            productImage = imageValue
+                        productName = productNameValue,
+                        productExpirationDate = expirationDate,
+                        category = categoryValue,
+                        savePlace = savedPlaceValue,
+                        productImage = imageValue
                     )
 
 //                  얼럿 다이얼로그 빌더 생성
                     val builder = AlertDialog.Builder(this)
-                            .setTitle("알림")
-                            .setMessage("저장하시겠습니까?")
+                        .setTitle("알림")
+                        .setMessage("저장하시겠습니까?")
 //                          긍정 버튼 누르면 데이터베이스에 데이터 저장 후 메시지 띄우고 이전 화면으로 돌아가기
-                            .setPositiveButton("확인", DialogInterface.OnClickListener {_, _ ->
-                                CoroutineScope(Dispatchers.IO).launch{
-                                    try{
-                                        database!!.productTableDao().saveProduct(productDTO)
-                                    }catch(err : Exception){
-                                        Log.d("Error",err.toString())
-                                    }
-                                    finish()
+                        .setPositiveButton("확인", DialogInterface.OnClickListener { _, _ ->
+                            CoroutineScope(Dispatchers.IO).launch {
+                                try {
+                                    database!!.productTableDao().saveProduct(productDTO)
+                                } catch (err: Exception) {
+                                    Log.d("Error", err.toString())
                                 }
-                                Toast.makeText(this,"저장되었습니다",Toast.LENGTH_SHORT).show()
-                            })
+                                finish()
+                            }
+                            Toast.makeText(this, "저장되었습니다", Toast.LENGTH_SHORT).show()
+                        })
 //                          부정 버튼 누르면 모든 로직 취소 후 메시지 띄움.
-                            .setNegativeButton("취소",DialogInterface.OnClickListener{_,_->
-                                Toast.makeText(this,"취소되었습니다.",Toast.LENGTH_SHORT).show()
-                            })
+                        .setNegativeButton("취소", DialogInterface.OnClickListener { _, _ ->
+                            Toast.makeText(this, "취소되었습니다.", Toast.LENGTH_SHORT).show()
+                        })
                     val alertDialog = builder.create()
                     alertDialog.show()
-                }else{
-                    Toast.makeText(this,"날짜를 확인해 주세요",Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "날짜를 확인해 주세요", Toast.LENGTH_SHORT).show()
                     return
                 }
             }
@@ -189,10 +205,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
             productImage.setImageBitmap(imageBitmap)
 
         }
     }
+
 }

@@ -8,6 +8,9 @@ import com.example.expiraton_date.sqliteRoom.ProductDatabase
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.Calendar
 
@@ -32,6 +35,8 @@ class CalendarActivity : AppCompatActivity(), OnDateSelectedListener {
     private fun bindview() {
 
         materialCalendarView = calendarActivityBinding.calendarView
+        itemInSelectedDateRCView = calendarActivityBinding.rcViewCalendarView
+
         materialCalendarView.setDateSelected(currentDate,true)
         materialCalendarView.setOnDateChangedListener(this)
     }
@@ -46,8 +51,8 @@ class CalendarActivity : AppCompatActivity(), OnDateSelectedListener {
     }
     private fun getProductList(date : Calendar) : MutableList<HashMap<String,String>>{
         val result = mutableListOf<HashMap<String,String>>()
-        runBlocking {
-            val data = db?.productTableDao()?.getItemWithExpirationDate("${currentDate.get(Calendar.YEAR)}-${currentDate.get(Calendar.MONTH)}-${currentDate.get(Calendar.DATE)}")
+        CoroutineScope(Dispatchers.IO).launch{
+            val data = db?.productTableDao()?.getItemWithExpirationDate("${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH)}-${date.get(Calendar.DATE)}")
             if (data != null) {
                 for(elem in data){
                     val resultListItem = HashMap<String, String>()
